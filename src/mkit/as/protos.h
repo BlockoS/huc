@@ -1,6 +1,6 @@
-#ifndef HAVE_STRCASECMP
+#if defined(_MSC_VER)
 #	define strcasecmp _stricmp
-#endif // !HAVE_STRCASECMP
+#endif
 
 /* ASSEMBLE.C */
 void assemble(int do_label);

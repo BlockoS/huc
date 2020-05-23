@@ -47,7 +47,8 @@ static int infile_ptr;
 
 static int user_norecurse = 0;
 
-#ifndef HAVE_STRCAT_S
+#if !((__STDC_VERSION__ >= 201112L) || (_MSC_VER >= 1910))
+#   if !defined(HAVE_STRCAT_S) 
 static int strcat_s(char* dst, size_t len, const char* src) {
 	size_t i;
 	if (!dst || !len) {
@@ -68,9 +69,9 @@ static int strcat_s(char* dst, size_t len, const char* src) {
 	dst[0] = '\0';
 	return EINVAL;
 }
-#endif // !HAVE_STRCAT_S
+#   endif // !HAVE_STRCAT_S
 
-#ifndef HAVE_STRCPY_S
+#   if !defined(HAVE_STRCPY_S)
 static int strcpy_s(char* dst, size_t len, const char* src) {
 	if (!dst || !len) {
 		return EINVAL;
@@ -86,7 +87,8 @@ static int strcpy_s(char* dst, size_t len, const char* src) {
 	dst[0] = '\0';
 	return EINVAL;
 }
-#endif // !HAVE_STRCPY_S
+#   endif // !HAVE_STRCPY_S
+#endif 
 
 static char *lib_to_file (char *lib)
 {
